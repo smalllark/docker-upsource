@@ -3,7 +3,7 @@ MAINTAINER Dmitri Sh <smalllark@gmail.com>
 
 # Install Upsource.
 ENV UPSOURCE_HOME_DIR /var/lib/upsource
-ENV UPSOURCE_VERSION 1.0.12551
+ENV UPSOURCE_VERSION 1.0.12566
 RUN mkdir -p $UPSOURCE_HOME_DIR && \
     apt-get update && \
     apt-get install -y unzip && \
@@ -17,4 +17,4 @@ EXPOSE 8080
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 WORKDIR $UPSOURCE_HOME_DIR/Upsource
-CMD ["./bin/upsource.sh", "start"]
+CMD ["./bin/upsource.sh", "run"]
