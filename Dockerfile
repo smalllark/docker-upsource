@@ -13,8 +13,12 @@ RUN mkdir -p $UPSOURCE_HOME_DIR && \
     rm -rf upsource-$UPSOURCE_VERSION.zip && \
     rm -rf $UPSOURCE_HOME_DIR/Upsource/conf && \
     mkdir -p $UPSOURCE_HOME_DIR/Upsource/{data,backups,logs,conf}
+ADD ./etc /etc
+
 EXPOSE 8080
+WORKDIR $UPSOURCE_HOME_DIR/Upsource
+
+CMD ["/sbin/my_init"]
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-WORKDIR $UPSOURCE_HOME_DIR/Upsource
-CMD ["./bin/upsource.sh", "run"]
