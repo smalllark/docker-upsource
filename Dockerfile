@@ -17,4 +17,4 @@ EXPOSE 8080
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 WORKDIR $UPSOURCE_HOME_DIR/Upsource
-CMD ["./bin/upsource.sh", "start"]
+CMD ["./bin/upsource.sh", "run"]
