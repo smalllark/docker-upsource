@@ -3,7 +3,7 @@ MAINTAINER Dmitri Sh <smalllark@gmail.com>
 
 # Install Upsource.
 ENV UPSOURCE_HOME_DIR /var/lib/upsource
-ENV UPSOURCE_VERSION 1.0.12566
+ENV UPSOURCE_VERSION 2.0.3554
 RUN mkdir -p $UPSOURCE_HOME_DIR && \
     apt-get update && \
     apt-get install -y unzip && \
