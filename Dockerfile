@@ -1,22 +1,23 @@
-FROM smalllark/java
-MAINTAINER Dmitri Sh <smalllark@gmail.com>
+FROM jetbrains/upsource:2018.1.539
 
-# Install Upsource.
-ENV UPSOURCE_HOME_DIR /var/lib/upsource
-ENV UPSOURCE_VERSION 3.5.3550
+USER root
+
 RUN apt-get update && \
-    apt-get install -y unzip && \
-    cd $UPSOURCE_HOME_DIR/.. && \
-    wget -q http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip && \
-    unzip upsource-$UPSOURCE_VERSION.zip && \
-    rm -rf upsource-$UPSOURCE_VERSION.zip && \
-    mv upsource-$UPSOURCE_VERSION upsource && \
-    rm -rf $UPSOURCE_HOME_DIR/conf && \
-    mkdir -p $UPSOURCE_HOME_DIR/data $UPSOURCE_HOME_DIR/backups $UPSOURCE_HOME_DIR/logs $UPSOURCE_HOME_DIR/conf && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-ADD ./etc /etc
+    apt-get install -y apt-transport-https && \
+    apt-get install -y curl && \
+    apt-get install -y wget && \
+# install python
+    apt-get install -y python-pip && \
+    apt-get install -y python3 && apt-get install -y python3-pip && \
 
-EXPOSE 8080
-WORKDIR $UPSOURCE_HOME_DIR
+# install php
+    apt-get install -y libapache2-mod-php php gnupg && \
+# install yarn
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y yarn && \
+# install nodejs
+    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+    apt-get install -y nodejs
 
-CMD ["/sbin/my_init"]
+USER jetbrains
