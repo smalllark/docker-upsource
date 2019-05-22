@@ -1,4 +1,4 @@
-FROM jetbrains/upsource:2018.2.1141
+FROM jetbrains/upsource:2018.2.1291
 
 USER root
 
